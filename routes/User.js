@@ -6,7 +6,7 @@ const router = express.Router({ mergeParams: true })
 // 2.
 const UserController = require('../controller/User'); 
 // 3.
-router.get('/user', verify,UserController.getallUser);
+router.get('/user',UserController.getallUser);
 
 //router.get('/api/user', verify,UserController.getUser)
 
@@ -15,6 +15,8 @@ router.get('/user/:name', UserController.getuserName)
 
 router.put('/user/:id', UserController.userUpdate) 
 // 4. 
+
+router.post('/user/login', UserController.userValid)
 
 router.post('/user',UserController.newUser)
 

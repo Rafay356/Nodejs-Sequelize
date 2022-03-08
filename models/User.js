@@ -1,7 +1,6 @@
 const dbConfig = require("../dbconfig/config") 
 const {Sequelize, DataTypes, Op} = require("sequelize")
 const modelAuth = require("../models/auth")
-const res = require("express/lib/response")
 const {database,username,password,dialect} = dbConfig
 
 const sequelize = new Sequelize(database, username, password,{
@@ -31,6 +30,19 @@ const sequelize = new Sequelize(database, username, password,{
             allowNull:false,
 
         },
+        password : {
+            type : DataTypes.STRING
+    
+        },
+        email : {
+            unique:true,
+            type : DataTypes.STRING,
+            allowNull:false,
+            validate:{
+            isEmail:true,
+        },
+    
+        },
         // AuthuserId:{
         //     type : DataTypes.INTEGER,
         //     setUser() {
@@ -48,26 +60,30 @@ const sequelize = new Sequelize(database, username, password,{
     //belongsTo: insert the association key in the source(Auth)
    
    //User.hasOne(modelAuth.Auth)   // Auth should be added in User
-   modelAuth.Auth.belongsTo(User) // Auth id should be added in User
-
+  // modelAuth.Auth.belongsTo(User) // Auth id should be added in User
   
- sequelize.sync({alter:true}).then(()=>{
+   User.sync({alter:true}).then(()=>{
+
+   }).catch((err)=>{
+
+         console.log(err)
+     })
      
-    return modelAuth.Auth.findOne({ where: { id: 1 } })
-    }).then((user)=>{
-        const user_ = new modelAuth.Auth(user)
-        //console.log("data",data)
-       // console.log("user",user)
-        //return modelAuth.Auth.findOne({where:{id:1}}).then((auth)=>{
+//     return modelAuth.Auth.findOne({ where: { id: 1 } })
+//     }).then((user)=>{
+//         const user_ = new modelAuth.Auth(user)
+//         //console.log("data",data)
+//        // console.log("user",user)
+//         //return modelAuth.Auth.findOne({where:{id:1}}).then((auth)=>{
             
-            console.log("auth",JSON.stringify(user))
-        //})
+//             console.log("auth",JSON.stringify(user))
+//         //})
 
 
-    }).catch((err)=>{
+//     }).catch((err)=>{
 
-        console.log(err)
-    })
+//         console.log(err)
+//     })
 
      
 

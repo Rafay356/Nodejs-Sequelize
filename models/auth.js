@@ -1,5 +1,5 @@
 const dbConfig = require("../dbconfig/config") 
-const {Sequelize, DataTypes, Op} = require("sequelize")
+const {Sequelize, DataTypes, Op, INTEGER} = require("sequelize")
 const {database,username,password,dialect} = dbConfig
 const modelUser = require("../models/User")
 
@@ -29,6 +29,7 @@ const sequelize = new Sequelize(database,username,password,{
         },
     
         },
+       
 
     },{
         freezeTableName : true,
