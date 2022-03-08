@@ -54,7 +54,7 @@ const getuserName =  async (req, res, next) => {
 
 
 const newUser = async  (req,res,next)=>{
-    const salt = await bcrypt.genSalt(10)
+    const salt = await bcrypt.genSalt()
     //store hash bcrypt.hash
     const hashPassword = await bcrypt.hash(req.body.password, salt)
 

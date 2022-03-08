@@ -1,6 +1,7 @@
 const dbConfig = require("../dbconfig/config")
 const {Sequelize, DataTypes, Op} = require("sequelize")
 const {database,username,password,dialect} = dbConfig
+const modelUser = require ("../models/User")
 
 const sequelize = new Sequelize(database, username, password,{
     dialect : dialect,
@@ -20,9 +21,13 @@ const Color = sequelize.define("colors",{
     {
         freezeTableName : true
     })
+    modelUser.User.hasMany(Color,{foreignKey:"userId", as : "user"}) 
 
-    // Color.sync({alter:true}).then(()=>{
-    // }).then(()=>{
+    sequelize.sync({alter:true}).then(()=>{
+    }).catch((err)=>{
+        console.log("err",err)
+
+    })
     //     //const colorn = Color.build({color_name : "blue"})
     //     if(Color.color_name != Color.color_name){
             

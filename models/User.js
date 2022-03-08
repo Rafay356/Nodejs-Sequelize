@@ -1,6 +1,6 @@
 const dbConfig = require("../dbconfig/config") 
 const {Sequelize, DataTypes, Op} = require("sequelize")
-const modelAuth = require("../models/auth")
+const modelColor = require("../models/Color")
 const {database,username,password,dialect} = dbConfig
 
 const sequelize = new Sequelize(database, username, password,{
@@ -59,15 +59,15 @@ const sequelize = new Sequelize(database, username, password,{
     //hasone: insert association key in the target (User)
     //belongsTo: insert the association key in the source(Auth)
    
-   //User.hasOne(modelAuth.Auth)   // Auth should be added in User
+     // Auth should be added in User
   // modelAuth.Auth.belongsTo(User) // Auth id should be added in User
   
-   User.sync({alter:true}).then(()=>{
+//   sequelize.sync({alter:true}).then(()=>{
 
-   }).catch((err)=>{
+//    }).catch((err)=>{
 
-         console.log(err)
-     })
+//          console.log(err)
+//      })
      
 //     return modelAuth.Auth.findOne({ where: { id: 1 } })
 //     }).then((user)=>{
