@@ -118,18 +118,27 @@ const userReg = new modelUser.User({
    
         const userEmail = await modelUser.User.findOne({where:{email:req.body.email}})
     //console.log(user)
-        if(!userEmail) return res.send("Email doesnt exist")
+        if(!userEmail) return res.status(401).send("Auth Failed")
       
         //comparing
     
             const validPass =  await bcrypt.compare(req.body.password,userEmail.password)
             //console.log("user password",user.password,"re body",req.body.password)
             //console.log("valid ", validPass)
-            if(!validPass) return res.send("Invalid")
+            if(!validPass) return res.status(203).send("Auth Failed")
+
+            if(validPass) {
+                const token = jwt.sign({id : userEmail.id, email:userEmail.email}, "secret key",{expiresIn : "1h"})
+                return res.status(200).json({
+                    message : "Login Success",
+                    token :token
+                })
+
+            }
     
-            // const token = jwt.sign({_id : userEmail._id}, "secret key")
+            
             // res.header("auth_user", token).send(token)
-            res.send("Login Success")
+           
         
     }
 
