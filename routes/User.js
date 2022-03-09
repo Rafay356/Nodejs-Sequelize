@@ -8,6 +8,7 @@ const UserController = require('../controller/User');
 // 3.
 router.get('/user',UserController.getallUser);
 
+
 //router.get('/api/user', verify,UserController.getUser)
 
 //router.get('/user/:id', UserController.getuserId)
@@ -17,6 +18,8 @@ router.put('/user/:id', UserController.userUpdate)
 // 4. 
 
 router.post('/user/login', UserController.userValid)
+
+//router.post('/user/color',UserController.newColor);
 
 router.post('/user',UserController.newUser)
 

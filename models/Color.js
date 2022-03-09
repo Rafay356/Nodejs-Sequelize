@@ -21,14 +21,17 @@ const Color = sequelize.define("colors",{
     {
         freezeTableName : true
     })
-    modelUser.User.hasMany(Color,{foreignKey:"userId", as : "user"}) 
+     modelUser.User.hasMany(Color,{foreignKey:"userId"}) 
+     Color.belongsTo(modelUser.User)
+    // Color.belongsTo(modelUser.User)
+    
 
     sequelize.sync({alter:true}).then(()=>{
     }).catch((err)=>{
         console.log("err",err)
 
     })
-    //     //const colorn = Color.build({color_name : "blue"})
+    // //     //const colorn = Color.build({color_name : "blue"})
     //     if(Color.color_name != Color.color_name){
             
     //         //return colorn.save()

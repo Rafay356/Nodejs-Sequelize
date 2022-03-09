@@ -3,11 +3,13 @@
 const express = require('express'); //import express
 
 // 1.
-const router  = express.Router(); 
+const router = express.Router({ mergeParams: true })
 // 2.
 const colorController = require('../controller/color'); 
 // 3.
-router.get('/color', colorController.newColor); 
+router.post('/color', colorController.newColor);
+
+router.get('/color', colorController.getColor) 
 // 4. 
 module.exports = router; // export to use in server.js
 

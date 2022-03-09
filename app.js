@@ -5,7 +5,9 @@ const colorRoutes = require("./routes/Color")
 const userRoute  = require("./routes/User")
 const authRoute  = require("./routes/authrou")
 const bodyParser = require("body-parser")
-
+const modelUser = require ("./models/User")
+const modelColor = require ("./models/Color")
+//const { Sequelize } = require("sequelize/dist")
 //to connect seqelize we need to make the  sequelize construtor and initials our DB
 // const sequelize = new Sequelize("colors", "root", "UIO786ar",{
 //     dialect : "mysql",
@@ -33,6 +35,12 @@ const port = process.env.PORT || 8000
 app.listen (port, ()=>{
     console.log(`Listning port ${port}`)
 })
+
+
+//modelUser.User.hasMany(modelColor.Color,{foreignKey:"userId"})
+//modelColor.Color.belongsTo(modelUser.User,{foreignKey:"colors"})
+
+
 // app.listen (8000, () => {
 
 //     console.log("Listning port 8000")

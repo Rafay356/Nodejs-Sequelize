@@ -5,6 +5,8 @@ const bcrypt = require("bcrypt");
 const modelUser = require("../models/User")
 const verify = require("../validToken/tokenValid")
 const Sequelize = require("sequelize")
+//const modelColor = require("../models/Color")
+
 
 
 app.use(express.json())
@@ -87,8 +89,31 @@ const userReg = new modelUser.User({
                 emailExist: userReg.email,
                 emailExist
             })
-        } 
+        }
+            //console.log("req user id",req.body.)
+                
 }
+// const newColor = async  (req,res,next)=>{
+//     const user = await modelUser.User.findOne({where:{id:"1"}})
+//     console.log("userid")
+//     const un = {
+//     userId : user.id,
+//     color_name:req.body.color_name
+
+
+// }
+// modelColor.Color.create(un).then(() =>{
+// res.status(400).json({
+//     message : "Color Entered",
+//     color:un
+// })
+// }).catch((re)=>{
+// res.status(404).json({
+//     message : "not Entered",
+//     re
+// })
+// })
+// } 
     const userValid =  async (req,res, next) =>{
    
         const userEmail = await modelUser.User.findOne({where:{email:req.body.email}})
@@ -165,6 +190,7 @@ const userUpdate = async (req,res)=>{
 
 module.exports = {
     newUser,
+    //newColor,
     userValid,
     //getUser,
     getallUser,

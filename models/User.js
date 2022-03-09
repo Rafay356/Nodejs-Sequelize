@@ -43,8 +43,8 @@ const sequelize = new Sequelize(database, username, password,{
         },
     
         },
-        // AuthuserId:{
-        //     type : DataTypes.INTEGER,
+         colorId:{
+            type : DataTypes.INTEGER,}
         //     setUser() {
 
         //     } 
@@ -55,19 +55,34 @@ const sequelize = new Sequelize(database, username, password,{
     {
         freezeTableName : true
     })
+  
     //source Auth  and traget User
     //hasone: insert association key in the target (User)
     //belongsTo: insert the association key in the source(Auth)
    
      // Auth should be added in User
-  // modelAuth.Auth.belongsTo(User) // Auth id should be added in User
-  
+      // Auth id should be added in User
+     
 //   sequelize.sync({alter:true}).then(()=>{
 
 //    }).catch((err)=>{
 
 //          console.log(err)
 //      })
+
+
+const db = {}
+db.Sequelize = Sequelize
+db.sequelize = sequelize
+module.exports = {User}
+
+
+
+
+
+
+
+
      
 //     return modelAuth.Auth.findOne({ where: { id: 1 } })
 //     }).then((user)=>{
@@ -140,8 +155,3 @@ const sequelize = new Sequelize(database, username, password,{
 //     //return usern.save()
 //     }).then(()=>{
 //         console.log("Enterned User")
-
-const db = {}
-db.Sequelize = Sequelize
-db.sequelize = sequelize
-module.exports = {User}
