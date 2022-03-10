@@ -6,7 +6,7 @@ const router = express.Router({ mergeParams: true })
 // 2.
 const UserController = require('../controller/User'); 
 // 3.
-router.get('/user',UserController.getallUser);
+router.get('/user',verify,UserController.getallUser);
 
 
 //router.get('/api/user', verify,UserController.getUser)

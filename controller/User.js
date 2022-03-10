@@ -13,7 +13,8 @@ app.use(express.json())
 //Get All User Data
 const getallUser = (req, res, next) => {
     
-        modelUser.User.findAll().then((User)=>{
+        modelUser.User.findAll({
+            attributes: {exclude: ['password']}}).then((User)=>{
             res.json(User)})
 }
 
@@ -129,10 +130,11 @@ const userReg = new modelUser.User({
 
             if(validPass) {
                 const token = jwt.sign({id : userEmail.id, email:userEmail.email}, "secret key",{expiresIn : "1h"})
-                return res.status(200).json({
+                return res.status(200).header("auth_user", token).json({
                     message : "Login Success",
                     token :token
                 })
+               // res.header("auth_user", token).send(token)
 
             }
     
