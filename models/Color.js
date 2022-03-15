@@ -6,7 +6,7 @@ const modelUser = require ("../models/User")
 const sequelize = new Sequelize(database, username, password,{
     dialect : dialect,
     define : {
-        timestamps : false}
+        timestamps : true}
     }) 
 const Color = sequelize.define("colors",{
     id : {
@@ -25,12 +25,14 @@ const Color = sequelize.define("colors",{
      Color.belongsTo(modelUser.User)
     // Color.belongsTo(modelUser.User)
     
+    
+    // sequelize.sync({force:true}).then(()=>{
+         
+    // }).catch((err)=>{
+    //     console.log("err",err)
 
-    sequelize.sync({alter:true}).then(()=>{
-    }).catch((err)=>{
-        console.log("err",err)
-
-    })
+    // })
+    
     // //     //const colorn = Color.build({color_name : "blue"})
     //     if(Color.color_name != Color.color_name){
             

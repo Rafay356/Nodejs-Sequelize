@@ -6,12 +6,12 @@ const router = express.Router({ mergeParams: true })
 // 2.
 const UserController = require('../controller/User'); 
 // 3.
-router.get('/user',verify,UserController.getallUser);
+router.get('/user',UserController.getallUser);
 
 
 //router.get('/api/user', verify,UserController.getUser)
 
-//router.get('/user/:id', UserController.getuserId)
+router.get('/user/:id', UserController.getuserId)
 router.get('/user/:name', UserController.getuserName)
 
 router.put('/user/:id', UserController.userUpdate) 
@@ -23,6 +23,6 @@ router.post('/user/login', UserController.userValid)
 
 router.post('/user',UserController.newUser)
 
-//router.delete('/user',UserController.deleteUser)
+router.post('/user/:id',UserController.isDelete)
 
 module.exports = router

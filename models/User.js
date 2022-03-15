@@ -43,14 +43,6 @@ const sequelize = new Sequelize(database, username, password,{
         },
     
         },
-         colorId:{
-            type : DataTypes.INTEGER,}
-        //     setUser() {
-
-        //     } 
-        //     //allowNull:false,
-
-        // }
     },
     {
         freezeTableName : true

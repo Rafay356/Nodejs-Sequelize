@@ -3,6 +3,7 @@ const app = express()
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt");
 const modelUser = require("../models/User")
+const modelColor = require("../models/Color")
 const verify = require("../validToken/tokenValid")
 const Sequelize = require("sequelize")
 //const modelColor = require("../models/Color")
@@ -15,7 +16,7 @@ const getallUser = (req, res, next) => {
     
         modelUser.User.findAll({
             attributes: {exclude: ['password']}}).then((User)=>{
-            res.json(User)})
+            res.status(200).json(User)})
 }
 
 // const getUser = (req,res)=>{
@@ -55,23 +56,20 @@ const getuserName =  async (req, res, next) => {
         
 }
 
-
-const newUser = async  (req,res,next)=>{
+//Creating new user and generating hash password
+const newUser = async  (req,res)=>{
     const salt = await bcrypt.genSalt()
     //store hash bcrypt.hash
     const hashPassword = await bcrypt.hash(req.body.password, salt)
-
     //new User
-    //create userauth using model 
-const userReg = new modelUser.User({
-            id:req.body.id,
+    //create user using model 
+    const userReg = new modelUser.User({
             password : hashPassword,
             email : req.body.email,
             first_name : req.body.first_name,
             last_name : req.body.last_name,
             username : req.body.username
         })
-        //console.log("auth",auth)
         try {
 
          await userReg.save()
@@ -115,6 +113,10 @@ const userReg = new modelUser.User({
 // })
 // })
 // } 
+
+
+
+//comparing the hash password  with the plain password to get the valid result
     const userValid =  async (req,res, next) =>{
    
         const userEmail = await modelUser.User.findOne({where:{email:req.body.email}})
@@ -129,6 +131,7 @@ const userReg = new modelUser.User({
             if(!validPass) return res.status(203).send("Auth Failed")
 
             if(validPass) {
+                //assigning the sign and password to the valid user who have token or secret key
                 const token = jwt.sign({id : userEmail.id, email:userEmail.email}, "secret key",{expiresIn : "1h"})
                 return res.status(200).header("auth_user", token).json({
                     message : "Login Success",
@@ -165,6 +168,8 @@ const userReg = new modelUser.User({
     //     })
     // })  
 
+
+    //updating the User
 const userUpdate = async (req,res)=>{
    
     const un = {
@@ -175,9 +180,9 @@ const userUpdate = async (req,res)=>{
         email : req.body.email
     
     }
-    console.log("req body",un)
+    // console.log("req body",un)
     const id = req.params.id
-    console.log(id)
+    // console.log(id)
     const updateUser = await modelUser.User.update(un,{where: {id:id}})
     if(updateUser) return res.status(200).json({
         id : id,
@@ -187,6 +192,18 @@ const userUpdate = async (req,res)=>{
     console.log(updateUser)
 
 }
+
+
+
+// Deleting user 
+const isDelete = async (req , res) =>{
+//     const del = await modelUser.User.findOne({where: {id:req.params.id}})
+//     if(!del) return res.status(404).send("Not Found")
+//     else{
+//         await modelUser.User.
+//     }
+
+ }
 
 //     const userAll = await modelUser.User.findByPk(id)
 //     console.log(userAll)
@@ -208,4 +225,5 @@ module.exports = {
     getuserId,
     getuserName,
     userUpdate,
+    isDelete,
 }
