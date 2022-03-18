@@ -26,12 +26,64 @@ const Color = sequelize.define("colors",{
     // Color.belongsTo(modelUser.User)
     
     
-    // sequelize.sync({force:true}).then(()=>{
+    sequelize.sync({alter:true}).then(()=>{
+      const arr  = [1,1,2,2,2,3,3,3,3,4,5,2,7,3,2]
+      let dublicate  =  arr.filter((n,index)=>{
+        //console.log("arrin",arr.indexOf(n))
+          return arr.indexOf(n) === index
+          
+      })
+      console.log(dublicate)
+      const counts = {};
+      let max = []; 
+      let min =[]
+      arr.forEach((x) => {
+          counts[x] = (counts[x] || 0) + 1;
          
-    // }).catch((err)=>{
-    //     console.log("err",err)
+          
+        });
 
-    // })
+        // for (var value in counts) {
+        //     if (counts.hasOwnProperty(key)) {
+        //       counts[key] > 1 ? max++ : max;
+        //     }
+        //   }
+        
+          //console.log(max)
+        console.log(Object.entries(counts))
+    
+        for(var key of Object.entries(counts))
+        {
+            
+
+          if(Object.values(counts)>max)
+        
+          //key.slice(1)
+          
+          {
+                max = key
+                //max.push(...key)
+        
+          }
+          
+        }
+         console.log("max",max)
+
+        for(var key of Object.entries(counts))
+        {
+          if(Object.values(counts)<min)
+          {
+             key =min
+          }
+        }
+        console.log(key)
+
+
+         
+    }).catch((err)=>{
+        console.log("err",err)
+
+    })
     
     // //     //const colorn = Color.build({color_name : "blue"})
     //     if(Color.color_name != Color.color_name){
